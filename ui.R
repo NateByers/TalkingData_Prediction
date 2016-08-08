@@ -10,21 +10,25 @@ library(shiny)
 shinyUI(fluidPage(
 
   # Application title
-  titlePanel("Old Faithful Geyser Data"),
+  titlePanel("Demographic Prediction"),
 
   # Sidebar with a slider input for number of bins
   sidebarLayout(
     sidebarPanel(
-      sliderInput("bins",
-                  "Number of bins:",
-                  min = 1,
-                  max = 50,
-                  value = 30)
+      selectInput("region", "Region", 
+                  choices = c("Beijing", "Chengdu", "Hong Kong", "Rural", 
+                              "Shanghai")),
+      sliderInput("hour", "Hour", min = 0, max = 23, value = 12),
+      radioButtons("phone_brand", "Phone Brand", 
+                   choices = c("vivo", "OPPO")),
+      checkboxGroupInput("apps", "Categories of active apps",
+                         c("Games", "Education", "Finance"),
+                         selected = "Games")
     ),
 
     # Show a plot of the generated distribution
     mainPanel(
-      plotOutput("distPlot")
+      tableOutput("table")
     )
   )
 ))
